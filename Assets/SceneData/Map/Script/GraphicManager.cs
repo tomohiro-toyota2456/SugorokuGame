@@ -31,6 +31,22 @@ public class GraphicManager : MonoBehaviour
 	IEnumerator UpdateMoving(IGameDataReader dataReader,Map map,CommandData commandData)
 	{
 		yield return fieldGraphicManager.StartMoveFromNowPosition(commandData.actorId,CalcTargetPos(map, commandData.num),2.0f);
+		StartCoroutine(UpdateUI(dataReader));
+	}
+
+	IEnumerator UpdateUI(IGameDataReader dataReader)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			int curMoney = 0;
+			int prevMoney = 0;
+			if (dataReader.ReadPlayerMoney(i,out curMoney,out prevMoney))
+			{
+				uiGraphicManager.SetMoney(i, curMoney);
+			}
+		}
+
+		yield return null;
 	}
 
 	IEnumerator UpdateUsingCard(IGameDataReader dataReader, Map map, CommandData commandData)

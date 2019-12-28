@@ -13,7 +13,7 @@ public class PlayerCommandController : ICommandController
 	public IEnumerator WaitCommand(IGameDataReader gameDataReader, GameUIController gameUIController,Map map)
 	{
 		int sumDices = 1;//gameDataGetterからしゅとく
-		int numDice = GameCalc.Dice(sumDices);
+		int numDice = GameCalc.RollDice(sumDices);
 		int curIdx = gameDataReader.ReadPlayerPositionId(actorId);
 		gameUIController.Init(sumDices, numDice);
 
