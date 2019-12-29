@@ -11,4 +11,5 @@ public interface IGameDataReader
 	/// <returns></returns>
 	int ReadPlayerPositionId(int actorId);
 
+	bool ReadPlayerMoney(int actorId, out int curMoney, out int prevMoney);
 }

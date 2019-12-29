@@ -23,6 +23,15 @@ public class EnemyData
 	int hp;
 	int maxHp;
 	int id;
+	int enemyId;
+}
+
+public class BossData
+{
+	int hp;
+	int maxHp;
+	int id;
+	int bossId;
 }
 
 public class GameData
@@ -42,4 +51,9 @@ public class CommandData
 	public CommandType commandType;
 	public int id;
 	public int[] num;
+}
+
+public class EventResultData
+{
+	public int[] targetActorIds;
 }
