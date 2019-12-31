@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "SquareData", menuName = "CreateSquareData", order = 100)]
 public class SquareData : ScriptableObject
 {
 	[SerializeField]

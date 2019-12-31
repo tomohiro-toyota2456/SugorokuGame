@@ -10,6 +10,8 @@ public class PlayerCommandController : ICommandController
 		this.actorId = actorId;
 	}
 
+	public int Id { get { return actorId; } }
+
 	public IEnumerator WaitCommand(IGameDataReader gameDataReader, GameUIController gameUIController,Map map)
 	{
 		int sumDices = 1;//gameDataGetterからしゅとく
@@ -30,6 +32,7 @@ public class PlayerCommandController : ICommandController
 		{
 			var root = map.CalcEnableRoot(numDice, curIdx);
 
+			map.SetMovableSquareMaker(root);
 			bool isLoop = true;
 			int areaId = 0;
 
@@ -41,9 +44,18 @@ public class PlayerCommandController : ICommandController
 				//ダイス
 				yield return map.SelectSquareCoroutine(out enumerator, root);
 				areaId = (int)enumerator.Current;
+
+				var popup = PopupManager.Instance.CreateMovingVerificationPopup();
+
+				popup.Open();
+				yield return popup.Wait();
+
+				if(popup.GetResult())
 				isLoop = false;
 			}
+
 			gameUIController.ChangeCameraFixedMode(false);
+			map.SetResetSquareMaker(root);
 
 			CommandData commandData = new CommandData();
 			commandData.actorId = actorId;
