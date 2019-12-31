@@ -41,6 +41,7 @@ public class GameData
 
 public enum CommandType
 {
+	None,//なんらかの理由で行動不能
 	Move,
 	UsingCard,
 }

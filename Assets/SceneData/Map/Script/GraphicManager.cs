@@ -34,7 +34,7 @@ public class GraphicManager : MonoBehaviour
 		StartCoroutine(UpdateUI(dataReader));
 	}
 
-	IEnumerator UpdateUI(IGameDataReader dataReader)
+	public IEnumerator UpdateUI(IGameDataReader dataReader)
 	{
 		for(int i = 0; i < 4; i++)
 		{
@@ -49,9 +49,24 @@ public class GraphicManager : MonoBehaviour
 		yield return null;
 	}
 
-	IEnumerator UpdateUsingCard(IGameDataReader dataReader, Map map, CommandData commandData)
+	public IEnumerator UpdateUsingCard(IGameDataReader dataReader, Map map, CommandData commandData)
 	{
 		yield return null;
+	}
+
+	public IEnumerator PlayTurnAnimation(string playerName)
+	{
+		uiGraphicManager.SetActiveTurnTextUI(true);
+		yield return uiGraphicManager.StartTurnTextAnimation(playerName);
+		uiGraphicManager.SetActiveTurnTextUI(false);
+
+	}
+
+	public IEnumerator PlayTurnAnimation(int turnNum)
+	{
+		uiGraphicManager.SetActiveTurnTextUI(true);
+		yield return uiGraphicManager.StartTurnTextAnimation(turnNum);
+		uiGraphicManager.SetActiveTurnTextUI(false);
 	}
 
 	Vector3[] CalcTargetPos(Map map,int[] ids)

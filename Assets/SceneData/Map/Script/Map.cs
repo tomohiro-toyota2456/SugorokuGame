@@ -11,11 +11,16 @@ public class Map : MonoBehaviour
 	[SerializeField]
 	float height;
 	[SerializeField]
-	Camera mapCamera;//マップを見るようのカメラ レイを飛ばすのに使う
+	Sprite plusMoneySprite;
+	[SerializeField]
+	Sprite minuMoneySprite;
+	[SerializeField]
+	Sprite eventSprite;
 
 	public int SquareSum { get { return squares.Length; } }
 	public float Width { get { return width; } }
 	public float Height { get { return height; } }
+	public Camera MapCamera { get; set; }
 
 	Dictionary<int, List<int>> rootDict;
 
@@ -27,6 +32,32 @@ public class Map : MonoBehaviour
 		}
 
 		return squares[idx];
+	}
+
+	public void Setup()
+	{
+		foreach(var square in squares)
+		{
+			var d = square.SquareData;
+			if(d != null && d.Type != SquareData.EffectType.NoEffect)
+			{
+				square.SetSprite(GetSpriteFromSquareType(d.Type));
+			}
+		}
+	}
+
+	Sprite GetSpriteFromSquareType(SquareData.EffectType type)
+	{
+		switch(type)
+		{
+			case SquareData.EffectType.MinusMoney:
+				return minuMoneySprite;
+			case SquareData.EffectType.PlusMoney:
+				return plusMoneySprite;
+			case SquareData.EffectType.Event:
+				return eventSprite;
+		}
+		return null;
 	}
 
 	public Dictionary<int, Tree<int>> CalcEnableRoot(int num,int curIdx)
@@ -129,6 +160,24 @@ public class Map : MonoBehaviour
 		return deepDict;
 	}
 
+	public void SetMovableSquareMaker(Dictionary<int, Tree<int>> root)
+	{
+		foreach(var sq in root)
+		{
+			int idx = sq.Value.Data;
+			squares[idx].SetColorYellow();
+		}
+	}
+
+	public void SetResetSquareMaker(Dictionary<int, Tree<int>> root)
+	{
+		foreach (var sq in root)
+		{
+			int idx = sq.Value.Data;
+			squares[idx].SetColorWhite();
+		}
+	}
+
 	public Coroutine SelectSquareCoroutine(out IEnumerator enumerator,Dictionary<int,Tree<int>> root)
 	{
 		enumerator = SelectSquare(root);
@@ -148,7 +197,7 @@ public class Map : MonoBehaviour
 					Debug.Log("Tap");
 					Vector2 screenTouchPos = touch.position;
 
-					Ray ray = mapCamera.ScreenPointToRay(screenTouchPos);
+					Ray ray = MapCamera.ScreenPointToRay(screenTouchPos);
 					RaycastHit hit;
 					int mask = 1 << 9;
 					if (Physics.Raycast(ray, out hit, 1000, mask))
@@ -170,7 +219,7 @@ public class Map : MonoBehaviour
 			{
 				Vector2 screenTouchPos = Input.mousePosition;
 
-				Ray ray = mapCamera.ScreenPointToRay(screenTouchPos);
+				Ray ray = MapCamera.ScreenPointToRay(screenTouchPos);
 				Debug.Log("Ray:"+ray.direction);
 				RaycastHit hit;
 				int mask = 1 << 9;
@@ -194,8 +243,4 @@ public class Map : MonoBehaviour
 		yield return selectedId;
 	}
 
-	public void Test(int i)
-	{
-		CalcEnableRoot(i, 0);
-	}
 }

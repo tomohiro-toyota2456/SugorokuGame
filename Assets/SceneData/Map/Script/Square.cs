@@ -10,6 +10,8 @@ public class Square : MonoBehaviour,ISquareAccess
 	int[] accessIds;
 	[SerializeField]
 	SquareData squareData;
+	[SerializeField]
+	SpriteRenderer spriteRenderer;
 
 	public int Id { get { return id; } }
 	public int[] AccessIds { get { return accessIds; } }//接続情報
@@ -24,5 +26,20 @@ public class Square : MonoBehaviour,ISquareAccess
 		}
 
 		return accessIds[idx];
+	}
+
+	public void SetColorYellow()
+	{
+		spriteRenderer.color = Color.yellow;
+	}
+
+	public void SetColorWhite()
+	{
+		spriteRenderer.color = Color.white;
+	}
+
+	public void SetSprite(Sprite sprite)
+	{
+		spriteRenderer.sprite = sprite;
 	}
 }

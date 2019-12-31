@@ -95,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   accessIds: 
+  squareData: {fileID: 0}
+  spriteRenderer: {fileID: 7934392489827542900}
 --- !u!65 &9186552125430065402
 BoxCollider:
   m_ObjectHideFlags: 0
