@@ -58,3 +58,12 @@ public class EventResultData
 {
 	public int[] targetActorIds;
 }
+
+public class BattlePlayerData
+{
+	public string userName;
+	public int maxHp;
+	public int curHp;
+	public IConvenienceCardDataReader[] cardData;
+	public IBattleCardDataReader[] battleCardData;
+}
