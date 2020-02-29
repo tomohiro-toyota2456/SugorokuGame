@@ -58,3 +58,13 @@ public class EventResultData
 {
 	public int[] targetActorIds;
 }
+/// <summary>
+/// 資材タイプ
+/// </summary>
+public enum MaterialType
+{
+	None,
+	Wood,
+	Stone,
+	Water,
+}

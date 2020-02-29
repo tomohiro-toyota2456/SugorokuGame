@@ -24,7 +24,8 @@ public class GameDataManager : MonoBehaviour, IGameDataReader
 			this.prevMoney = money;
 			this.curPosId = curPosId;
 			this.prevPosId = curPosId;
-			this.battleCardList = new List<IBattleCardDataReader>();
+			this.tool = null;
+			this.armor = null;
 			this.convenienceCardList = new List<IConvenienceCardDataReader>();
 		}
 
@@ -37,6 +38,7 @@ public class GameDataManager : MonoBehaviour, IGameDataReader
 		}
 
 		public PlayerType type;
+		public int imageId;
 		public int exId = -1;//type: Npc Bossのみ使う保存用
 		public int hp;
 		public int maxHp;
@@ -44,7 +46,8 @@ public class GameDataManager : MonoBehaviour, IGameDataReader
 		public int prevPosId;
 		public int money;
 		public int prevMoney;
-		public List<IBattleCardDataReader> battleCardList;
+		public IToolDataReader tool;
+		public IArmorDataReader armor;
 		public List<IConvenienceCardDataReader> convenienceCardList;
 
 		public void SetPosition(int posId)
@@ -144,5 +147,30 @@ public class GameDataManager : MonoBehaviour, IGameDataReader
 		curMoney = player.money;
 		prevMoney = player.prevMoney;
 		return true;
+	}
+
+	public IToolDataReader ReadPlayerTool(int actorId)
+	{
+		return gamePlayerData[actorId].tool;
+	}
+
+	public IArmorDataReader ReadPlayerArmor(int actorId)
+	{
+		return gamePlayerData[actorId].armor;
+	}
+
+	public int ReadPlayerHp(int actorId)
+	{
+		return gamePlayerData[actorId].hp;
+	}
+
+	public int ReadImageId(int actorId)
+	{
+		return gamePlayerData[actorId].imageId;
+	}
+
+	public int ReadExId(int actorId)
+	{
+		return gamePlayerData[actorId].exId;
 	}
 }
