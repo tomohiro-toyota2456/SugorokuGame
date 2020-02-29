@@ -12,4 +12,10 @@ public interface IGameDataReader
 	int ReadPlayerPositionId(int actorId);
 
 	bool ReadPlayerMoney(int actorId, out int curMoney, out int prevMoney);
+
+	int ReadPlayerHp(int actorId);
+	IToolDataReader ReadPlayerTool(int actorId);
+	IArmorDataReader ReadPlayerArmor(int actorId);
+	int ReadImageId(int actorId);
+	int ReadExId(int actorId);
 }

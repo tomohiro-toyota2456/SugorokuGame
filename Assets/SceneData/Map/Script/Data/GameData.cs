@@ -58,12 +58,13 @@ public class EventResultData
 {
 	public int[] targetActorIds;
 }
-
-public class BattlePlayerData
+/// <summary>
+/// 資材タイプ
+/// </summary>
+public enum MaterialType
 {
-	public string userName;
-	public int maxHp;
-	public int curHp;
-	public IConvenienceCardDataReader[] cardData;
-	public IBattleCardDataReader[] battleCardData;
+	None,
+	Wood,
+	Stone,
+	Water,
 }
