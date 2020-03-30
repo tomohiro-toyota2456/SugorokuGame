@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// プレイヤーが装備するツールデータ（武器）
 /// </summary>
+[CreateAssetMenu(fileName = "ToolData",menuName = "CreateToolData",order = 100)]
 public class ToolData : ScriptableObject,IToolDataReader
 {
 	[SerializeField]
@@ -25,9 +26,8 @@ public class ToolData : ScriptableObject,IToolDataReader
 	public int BonusParam { get { return bonusParam; } set { bonusParam = value; } }
 }
 
-public interface IToolDataReader
+public interface IToolDataReader : IDatabaseReader
 {
-	int Id { get; }
 	string Name { get; }
 	int Atk { get; }
 	MaterialType MaterialType { get; }
